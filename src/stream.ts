@@ -166,7 +166,11 @@ export class LocalStream extends MediaStream {
   }
 
   private static computeAudioConstraints(constraints: Constraints): MediaTrackConstraints {
-    return constraints.audio as MediaTrackConstraints;
+    return {
+      ...constraints.audio as MediaTrackConstraints,
+      advanced: [{ echoCancellation: true }, { autoGainControl: true }, { noiseSuppression: true }] as any,
+      echoCancellation: true
+    } as MediaTrackConstraints
   }
 
   private static computeVideoConstraints(constraints: Constraints): MediaTrackConstraints {
